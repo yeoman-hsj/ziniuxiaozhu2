@@ -1,0 +1,28 @@
+group 'com.ziniuxiaozhu'
+version '1.0-SNAPSHOT'
+
+subprojects {
+    apply plugin: 'idea'
+
+    ext {
+        springBootVersion = '1.5.2.RELEASE'
+        mysqlVersion = '5.1.40'
+    }
+
+    //buildscript {
+    //    repositories {
+    //        maven{ url 'http://www.ziniuxiaozhu.com:8081/nexus/content/groups/public' }
+    //        maven { url "http://repo.spring.io/snapshot" }
+    //        maven { url "http://repo.spring.io/milestone" }
+    //        mavenLocal()
+    //        mavenCentral()
+    //        jcenter()
+    //    }
+//
+    //    dependencies {
+    //        classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
+    //        /*这个是开发时用来支持热部署的，上开发/测试/生产环境时，建议注释掉，以免影响性能。*/
+    //        classpath("org.springframework:springloaded:1.2.6.RELEASE")
+    //    }
+    //}
+}

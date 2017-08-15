@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+    <title>课程</title>
+    <style>
+        body {
+            margin: 0 1%;
+            background-color: #f8f8f8;
+            font-family: "微软雅黑 Light";
+        }
+    </style>
+</head>
+<body>
+<div>
+    <form>
+        <input type="hidden" id="id" value="0" />
+        <p>课程主题：<input type="text" id="title" value="" /></p>
+        <p>内容简介：<textarea id="descrip" rows="2"></textarea></p>
+        <p>受众描述：<textarea id="audience" rows="2"></textarea></p>
+        <p>讲课时间：<input type="date" id="lectureDate" /><input type="time" id="lectureTime" /></p>
+        <p>讲课地点：<input type="text" id="addr" value="" /></p>
+        <p>
+            优惠名额：<input type="text" id="quotaNum" value="" />
+            限超名额：<input type="text" id="excessNum" value="" />
+        </p>
+    </form>
+    <div>
+        <a href="javascript:publish()" id="pub">发布</a>
+        <a href="javascript:cmtUpdate()" id="cmtUp">提交更新</a>
+    </div>
+</div>
+</body>
+<script src="/jquery-1.11.1.min.js" type="text/javascript"></script>
+<script src="/commons.js" type="text/javascript"></script>
+<script type="text/javascript">
+    $(function () {
+        var cid = znxz.commons.getUrlParam('id');
+        if(cid > 0){
+            id.value = cid;
+            getCourseInfo(cid);
+            pub.setAttribute("hidden", "hidden");
+        }else{
+            cmtUp.setAttribute("hidden", "hidden");
+        }
+    });
+    function publish() {
+        if(!validParams()){
+            return false;
+        }
+        $.ajax({
+            type: "POST",
+            url: "/course/publish",
+            data: {"id":id.value,"title":title.value,"descrip":descrip.value,
+                "audience":audience.value,"gmtLecture":dateTimeHandle(lectureDate.value, lectureTime.value),
+                "addr":addr.value,"quotaNum":quotaNum.value,"excessNum":excessNum.value},
+            success: function (result) {
+                console.log(result);
+                if (result.success){
+                    id.value = result.data.id;
+                }
+            },
+            dataType: "json"
+        });
+    }
+    function getCourseInfo(id) {
+        $.ajax({
+            type: "GET",
+            url: "/course/getCourseInfo",
+            data: {"id":id},
+            success: function (result) {
+                if (result.success){
+                    var course = result.data;
+                    console.log(course);
+                    title.value = course.title;
+                    descrip.value = course.descrip;
+                    audience.value = course.audience;
+                    console.log(course.gmtLecture);
+                    var gmtLecture = new Date(new Number(course.gmtLecture));
+                    var dateStr = gmtLecture.toLocaleDateString().split("/");
+                    lectureDate.setAttribute("value", dateStr[0]+"-"
+                        +(dateStr[1].length>1?dateStr[1]:("0"+dateStr[1]))+"-"
+                        +(dateStr[2].length>1?dateStr[2]:("0"+dateStr[2])));
+                    var timeStr = gmtLecture.toTimeString().split(":");
+                    lectureTime.setAttribute("value", timeStr[0]+":"+timeStr[1]);
+                    addr.value = course.addr;
+                    quotaNum.value = course.quotaNum;
+                    excessNum.value = course.excessNum;
+                    if(course.stage>1){
+                        title.readOnly = true;
+                        title.style.backgroundColor = "#F8F8F8";
+                        descrip.readOnly = true;
+                        descrip.style.backgroundColor = "#F8F8F8";
+                        audience.readOnly = true;
+                        audience.style.backgroundColor = "#F8F8F8";
+                        quotaNum.readOnly = true;
+                        quotaNum.style.backgroundColor = "#F8F8F8";
+                        excessNum.readOnly = true;
+                        excessNum.style.backgroundColor = "#F8F8F8";
+                    }
+                }else{
+                    alert(result.msg);
+                }
+            },
+            dataType: "json"
+        });
+    }
+    function cmtUpdate() {
+        if(!validParams()){
+            return false;
+        }
+        $.ajax({
+            type: "POST",
+            url: "/course/cmtUpdate",
+            data: {"id":id.value,"title":title.value,"descrip":descrip.value,
+                "audience":audience.value,"gmtLecture":dateTimeHandle(lectureDate.value, lectureTime.value),
+                "addr":addr.value,"quotaNum":quotaNum.value,"excessNum":excessNum.value},
+            success: function (result) {
+                console.log(result);
+                if (result.success){
+                    console.log(result.msg);
+                }else{
+                    alert(result.msg);
+                }
+            },
+            dataType: "json"
+        });
+    }
+    function validParams() {
+        if (!title.value){
+            alert("主题不能为空");
+            return false;
+        }
+        if (!descrip.value){
+            alert("内容简介不能为空");
+            return false;
+        }
+        if (!lectureDate.value || !lectureTime.value){
+            alert("开讲时间未选定");
+            return false;
+        }
+        if (!addr.value){
+            alert("讲课地点不能为空");
+            return false;
+        }
+        if (!quotaNum.value){
+            alert("优惠名额应大于0小于9999人");
+            return false;
+        }
+        if (!excessNum.value){
+            alert("限超名额应大于0小于9999人");
+            return false;
+        }
+        return true;
+    }
+    function dateTimeHandle(date, time) {
+        var dateTime= new Date(date);
+        var timeArr = time.split(":");
+        dateTime.setHours(timeArr[0]);
+        dateTime.setMinutes(timeArr[1]);
+        console.log(dateTime.getTime());
+        return dateTime.getTime();
+    }
+</script>
+</html>

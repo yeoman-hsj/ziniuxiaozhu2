@@ -1,0 +1,31 @@
+spring:
+  application:
+    #指定Application.main入口类
+    name : Application
+  #默认使用模板
+  thymeleaf:
+    #配置支持H5页面
+    mode : LEGACYHTML5
+    #在不重启容器的情况下重新加载Thymeleaf模板，即热刷新
+    cache : false
+    encoding : UTF-8
+  #数据源配置
+  datasource:
+    driverClassName : com.mysql.jdbc.Driver
+    url : jdbc:mysql://rds0473qn129qi882964.mysql.rds.aliyuncs.com:3306/znxz?useUnicode=true&amp;characterEncoding=UTF-8
+    username : qiuxm
+    password : 1qaz2wsx
+    initialize : true
+    tomcat:
+      maxTotal : 100
+      maxIdle : 50
+      minIdle : 8
+      initialSize : 10
+  #mybatis:
+  #  basePackages : com.ziniuxiaozhu.data.mapper
+---
+server:
+  #映射启动端口
+  port : 8080
+  #gradle bootRun方式运行时的工程名，默认为/
+  contextPath : /
