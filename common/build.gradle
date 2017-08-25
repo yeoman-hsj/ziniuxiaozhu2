@@ -16,7 +16,5 @@ repositories {
 }
 
 dependencies {
-    compile project(':common')
-    compile("org.springframework.boot:spring-boot-starter-jdbc:${springBootVersion}")
-    runtime("mysql:mysql-connector-java:${mysqlVersion}")
+    compile("org.mybatis.spring.boot:mybatis-spring-boot-starter:1.2.0")
 }

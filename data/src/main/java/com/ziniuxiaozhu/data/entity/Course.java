@@ -9,18 +9,23 @@ public class Course {
     private Long id;
     private String title;
     private String descrip;
-    private String audience;
     private Long lecturerId;
-    private Date gmtCreate;
+    private String lecturerName;
+    private String audience;
     private Date gmtLecture;
     private String addr;
     private Byte stage;
-    private Integer quotaNum;
-    private Integer excessNum;
-    private String learnerIds;
+    private Long ruleId;
+    private Integer signupNum;
+    private Date gmtCreate;
     private Date gmtModify;
     private Integer extInt;
     private String extStr;
+    private String coverUrl;
+    private String pptUrl;
+    private String speechUrl;
+    private String audioUrl;
+    private String videoUrl;
 
     public Long getId() {
         return id;
@@ -46,14 +51,6 @@ public class Course {
         this.descrip = descrip;
     }
 
-    public String getAudience() {
-        return audience;
-    }
-
-    public void setAudience(String audience) {
-        this.audience = audience;
-    }
-
     public Long getLecturerId() {
         return lecturerId;
     }
@@ -62,12 +59,20 @@ public class Course {
         this.lecturerId = lecturerId;
     }
 
-    public Date getGmtCreate() {
-        return gmtCreate;
+    public String getLecturerName() {
+        return lecturerName;
     }
 
-    public void setGmtCreate(Date gmtCreate) {
-        this.gmtCreate = gmtCreate;
+    public void setLecturerName(String lecturerName) {
+        this.lecturerName = lecturerName;
+    }
+
+    public String getAudience() {
+        return audience;
+    }
+
+    public void setAudience(String audience) {
+        this.audience = audience;
     }
 
     public Date getGmtLecture() {
@@ -94,28 +99,28 @@ public class Course {
         this.stage = stage;
     }
 
-    public Integer getQuotaNum() {
-        return quotaNum;
+    public Long getRuleId() {
+        return ruleId;
     }
 
-    public void setQuotaNum(Integer quotaNum) {
-        this.quotaNum = quotaNum;
+    public void setRuleId(Long ruleId) {
+        this.ruleId = ruleId;
     }
 
-    public Integer getExcessNum() {
-        return excessNum;
+    public Integer getSignupNum() {
+        return signupNum;
     }
 
-    public void setExcessNum(Integer excessNum) {
-        this.excessNum = excessNum;
+    public void setSignupNum(Integer signupNum) {
+        this.signupNum = signupNum;
     }
 
-    public String getLearnerIds() {
-        return learnerIds;
+    public Date getGmtCreate() {
+        return gmtCreate;
     }
 
-    public void setLearnerIds(String learnerIds) {
-        this.learnerIds = learnerIds;
+    public void setGmtCreate(Date gmtCreate) {
+        this.gmtCreate = gmtCreate;
     }
 
     public Date getGmtModify() {
@@ -142,24 +147,69 @@ public class Course {
         this.extStr = extStr;
     }
 
+    public String getCoverUrl() {
+        return coverUrl;
+    }
+
+    public void setCoverUrl(String coverUrl) {
+        this.coverUrl = coverUrl;
+    }
+
+    public String getPptUrl() {
+        return pptUrl;
+    }
+
+    public void setPptUrl(String pptUrl) {
+        this.pptUrl = pptUrl;
+    }
+
+    public String getSpeechUrl() {
+        return speechUrl;
+    }
+
+    public void setSpeechUrl(String speechUrl) {
+        this.speechUrl = speechUrl;
+    }
+
+    public String getAudioUrl() {
+        return audioUrl;
+    }
+
+    public void setAudioUrl(String audioUrl) {
+        this.audioUrl = audioUrl;
+    }
+
+    public String getVideoUrl() {
+        return videoUrl;
+    }
+
+    public void setVideoUrl(String videoUrl) {
+        this.videoUrl = videoUrl;
+    }
+
     @Override
     public String toString() {
         return "Course{" +
                 "id=" + id +
                 ", title='" + title + '\'' +
                 ", descrip='" + descrip + '\'' +
-                ", audience='" + audience + '\'' +
                 ", lecturerId=" + lecturerId +
-                ", gmtCreate=" + gmtCreate +
+                ", lecturerName='" + lecturerName + '\'' +
+                ", audience='" + audience + '\'' +
                 ", gmtLecture=" + gmtLecture +
                 ", addr='" + addr + '\'' +
                 ", stage=" + stage +
-                ", quotaNum=" + quotaNum +
-                ", excessNum=" + excessNum +
-                ", learnerIds='" + learnerIds + '\'' +
+                ", ruleId=" + ruleId +
+                ", signupNum=" + signupNum +
+                ", gmtCreate=" + gmtCreate +
                 ", gmtModify=" + gmtModify +
                 ", extInt=" + extInt +
                 ", extStr='" + extStr + '\'' +
+                ", coverUrl='" + coverUrl + '\'' +
+                ", pptUrl='" + pptUrl + '\'' +
+                ", speechUrl='" + speechUrl + '\'' +
+                ", audioUrl='" + audioUrl + '\'' +
+                ", videoUrl='" + videoUrl + '\'' +
                 '}';
     }
 }

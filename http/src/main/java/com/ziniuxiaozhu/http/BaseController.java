@@ -12,6 +12,17 @@ public class BaseController {
     public static final String DATA = "data";
     public static final String MSG = "msg";
 
+    long getUserId(){
+        return 3L;//默认取到当前用户的ID为3
+    }
+    boolean isAdmin(){
+        return 3 == getUserId();
+    }
+
+    String getUserName(){
+        return "好事达";//默认取到当前用户的ID为3的用户名
+    }
+
     ModelMap getSuccessResult(){
         ModelMap modelMap = new ModelMap();
         modelMap.put(SUCCESS, true);

@@ -9,7 +9,6 @@ import org.apache.ibatis.jdbc.SQL;
 public class CourseProvider {
 
     public String updateByIdSelective(Course obj){
-        System.out.println(123333);
         return new SQL(){{
             UPDATE("course");
             if(obj.getTitle() != null){
@@ -30,14 +29,11 @@ public class CourseProvider {
             if(obj.getStage() != null){
                 SET("stage = #{stage}");
             }
-            if(obj.getQuotaNum() != null){
-                SET("quotaNum = #{quotaNum}");
+            if(obj.getRuleId() != null){
+                SET("ruleId = #{ruleId}");
             }
-            if(obj.getExcessNum() != null){
-                SET("excessNum = #{excessNum}");
-            }
-            if(obj.getLearnerIds() != null){
-                SET("learnerIds = #{learnerIds}");
+            if(obj.getSignupNum() != null){
+                SET("signupNum = #{signupNum}");
             }
             if(obj.getGmtModify() != null){
                 SET("gmtModify = now()");

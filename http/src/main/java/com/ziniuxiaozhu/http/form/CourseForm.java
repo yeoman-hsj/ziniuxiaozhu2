@@ -8,10 +8,10 @@ public class CourseForm {
     private String title;
     private String descrip;
     private String audience;
+    private Long ruleId;
+    private Byte stage;
     private Long gmtLecture;
     private String addr;
-    private Integer quotaNum;
-    private Integer excessNum;
 
     public Long getId() {
         return id;
@@ -45,6 +45,22 @@ public class CourseForm {
         this.audience = audience;
     }
 
+    public Long getRuleId() {
+        return ruleId;
+    }
+
+    public void setRuleId(Long ruleId) {
+        this.ruleId = ruleId;
+    }
+
+    public Byte getStage() {
+        return stage;
+    }
+
+    public void setStage(Byte stage) {
+        this.stage = stage;
+    }
+
     public Long getGmtLecture() {
         return gmtLecture;
     }
@@ -61,33 +77,17 @@ public class CourseForm {
         this.addr = addr;
     }
 
-    public Integer getQuotaNum() {
-        return quotaNum;
-    }
 
-    public void setQuotaNum(Integer quotaNum) {
-        this.quotaNum = quotaNum;
-    }
-
-    public Integer getExcessNum() {
-        return excessNum;
-    }
-
-    public void setExcessNum(Integer excessNum) {
-        this.excessNum = excessNum;
-    }
-
-    public boolean checkQuotaNum(){
-        if (null == this.quotaNum || this.quotaNum < 0 || this.quotaNum > 9999){
-            return false;
-        }
-        return true;
-    }
-
-    public boolean checkExcessNum(){
-        if (null == this.excessNum || this.excessNum < 0 || this.excessNum > 9999){
-            return false;
-        }
-        return true;
+    @Override
+    public String toString() {
+        return "CourseForm{" +
+                "id=" + id +
+                ", title='" + title + '\'' +
+                ", descrip='" + descrip + '\'' +
+                ", audience='" + audience + '\'' +
+                ", ruleId=" + ruleId +
+                ", gmtLecture=" + gmtLecture +
+                ", addr='" + addr + '\'' +
+                '}';
     }
 }

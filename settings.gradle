@@ -4,4 +4,5 @@ include 'http'
 include 'service'
 include 'data'
 include 'test'
+include 'common'
 

@@ -2,9 +2,13 @@ package com.ziniuxiaozhu.service.impl;
 
 import com.ziniuxiaozhu.data.entity.Course;
 import com.ziniuxiaozhu.data.mapper.CourseMapper;
+import com.ziniuxiaozhu.data.mapper.ResMapper;
 import com.ziniuxiaozhu.service.interfaces.ICourseService;
+import com.ziniuxiaozhu.service.interfaces.IResService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 /**
  * Created by yeoman on 2017/7/18.
@@ -14,6 +18,8 @@ public class CourseServiceImpl implements ICourseService {
 
     @Autowired
     private CourseMapper courseMapper;
+    @Autowired
+    private IResService resService;
 
     @Override
     public long add(Course course) {
@@ -22,11 +28,22 @@ public class CourseServiceImpl implements ICourseService {
 
     @Override
     public Course getCourseById(Long id) {
-        return courseMapper.selectOneById(id);
+        Course course = courseMapper.selectOneById(id);
+        course.setCoverUrl(resService.getResCoverImgUrl(id));
+        return course;
     }
 
     @Override
     public boolean update(Course course) {
         return courseMapper.update(course) == 1;
+    }
+
+    @Override
+    public List<Course> getList() {
+        List<Course> list = courseMapper.selectAll();
+        for (Course course : list){
+            course.setCoverUrl(resService.getResCoverImgUrl(course.getId()));
+        }
+        return list;
     }
 }
