@@ -4,6 +4,8 @@ import com.ziniuxiaozhu.common.Const;
 import com.ziniuxiaozhu.data.entity.Course;
 import com.ziniuxiaozhu.http.form.CourseForm;
 import com.ziniuxiaozhu.service.interfaces.ICourseService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.ui.ModelMap;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
@@ -70,7 +72,6 @@ public class CourseController extends BaseController{
             course.setAudience(form.getAudience());
             course.setRuleId(Const.CourseRule.PUBLISH_INIT);
             course.setStage(Const.CourseStage.PUBLISH);
-            System.out.println(course);
             courseService.add(course);
             return getSuccessResult();
         }
@@ -97,7 +98,6 @@ public class CourseController extends BaseController{
             course.setDescrip(form.getDescrip());
             course.setAudience(form.getAudience());
             course.setRuleId(Const.CourseRule.PUBLISH_INIT);
-            System.out.println(course);
             if (courseService.update(course))
                 return getSuccessResult();
             return getFailResult(Const.ReturnCode.F_303, "系统保存失败");

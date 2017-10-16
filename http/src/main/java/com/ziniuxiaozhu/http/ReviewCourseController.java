@@ -6,6 +6,7 @@ import com.ziniuxiaozhu.http.form.CourseForm;
 import com.ziniuxiaozhu.service.interfaces.ICourseService;
 import org.springframework.ui.ModelMap;
 import org.springframework.util.StringUtils;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -21,6 +22,14 @@ public class ReviewCourseController extends BaseController {
 
     @Resource
     private ICourseService courseService;
+
+    @GetMapping("/course/reviewList")
+    public ModelMap reviewList(){
+        if(!isAdmin()){
+            return getFailResult(Const.ReturnCode.F_202, "无操作权限");
+        }
+        return getSuccessResult(courseService.getReviewList());
+    }
 
     /**
      * 审核课程

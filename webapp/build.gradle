@@ -1,20 +1,20 @@
-group 'com.ziniuxiaozhu'
-version '1.0-SNAPSHOT'
+//group 'com.ziniuxiaozhu'
+//version '1.0-SNAPSHOT'
 
-apply plugin: 'java'
+//apply plugin: 'java'
 apply plugin: 'war'
 apply plugin: 'org.springframework.boot'
 
-sourceCompatibility = 1.8
-targetCompatibility = 1.8
+//sourceCompatibility = 1.8
+//targetCompatibility = 1.8
 
 buildscript {
     repositories {
-        maven{ url 'http://www.ziniuxiaozhu.com:8081/nexus/content/groups/public' }
-        maven { url "http://repo.spring.io/snapshot" }
-        maven { url "http://repo.spring.io/milestone" }
-        mavenLocal()
-        mavenCentral()
+    //    maven{ url 'http://www.ziniuxiaozhu.com:8081/nexus/content/groups/public' }
+    //    maven { url "http://repo.spring.io/snapshot" }
+    //    maven { url "http://repo.spring.io/milestone" }
+    //    mavenLocal()
+    //    mavenCentral()
         jcenter()
     }
 
@@ -25,14 +25,14 @@ buildscript {
     }
 }
 
-repositories {
-    maven{ url 'http://www.ziniuxiaozhu.com:8081/nexus/content/groups/public' }
-    maven { url "http://repo.spring.io/snapshot" }
-    maven { url "http://repo.spring.io/milestone" }
-    mavenLocal()
-    mavenCentral()
-    jcenter()
-}
+//repositories {
+//    maven{ url 'http://www.ziniuxiaozhu.com:8081/nexus/content/groups/public' }
+//    maven { url "http://repo.spring.io/snapshot" }
+//    maven { url "http://repo.spring.io/milestone" }
+//    mavenLocal()
+//    mavenCentral()
+//    jcenter()
+//}
 
 dependencies {
     compile project(':http')

@@ -36,4 +36,10 @@ public interface ICourseService {
      * @return
      */
     List<Course> getList();
+
+    /**
+     * 获取待审核课程列表
+     * @return
+     */
+    List<Course> getReviewList();
 }

@@ -1,5 +1,8 @@
 package com.ziniuxiaozhu.http;
 
+import com.ziniuxiaozhu.common.Const;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.ui.ModelMap;
 
 /**
@@ -26,7 +29,7 @@ public class BaseController {
     ModelMap getSuccessResult(){
         ModelMap modelMap = new ModelMap();
         modelMap.put(SUCCESS, true);
-        modelMap.put(CODE, 200);
+        modelMap.put(CODE, Const.ReturnCode.OK);
         modelMap.put(MSG, "成功");
         return modelMap;
     }

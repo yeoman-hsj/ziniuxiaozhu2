@@ -26,4 +26,7 @@ public interface CourseMapper {
 
     @Select({"select * from course"})
     List<Course> selectAll();
+
+    @Select({"SELECT * FROM course where stage=#{stage}"})
+    List<Course> selectListByStage(byte stage);
 }

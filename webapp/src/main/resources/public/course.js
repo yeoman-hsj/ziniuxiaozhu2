@@ -35,14 +35,14 @@ function getCourseList(){
     });
 }
 function showCards(courses) {
-    for(i in courses){
+    for(var i in courses){
         courseList[courses[i].id] = courses[i];
         var cardNode = $("#card").clone();
         $(cardNode).children().first().html(setStage(courses[i].id));
         $(cardNode).find("div").first().attr("data", courses[i].id);
         $(cardNode).find("p[name=lecturerName]").first().html(courses[i].lecturerName);
         $(cardNode).find("p[name=title]").first().html(courses[i].title);
-        $(cardNode).css("background", 'url('+courses[i].coverUrl+')');
+        $(cardNode).css("background", 'url('+courses[i].coverUrl+'?v='+new Date().getTime()+')');
         $(cardNode).css("background-size", "100% 100%");
         $(cardNode).css("display", "block");
         var liNode = document.createElement("li");
@@ -56,7 +56,7 @@ function showCards(courses) {
 function showUpdateBox(cid) {
     updateBox.style.display = "block";
     $("#updateBox").children().first().attr("data", cid);
-    $("#updateBox").find("img").first().attr("src", courseList[cid].coverUrl);
+    $("#updateBox").find("img").first().attr("src", courseList[cid].coverUrl+"?v="+new Date().getTime());
     $("#upTitle").val(courseList[cid].title);
     $("#upDescrip").val(courseList[cid].descrip);
     $("#upAudience").val(courseList[cid].audience);
@@ -66,11 +66,22 @@ function closeBox(node) {
     updateBox.style.display = "none";
 }
 function updateCourse() {
+    var upId = $("#updateBox").children().first().attr("data");
+    uploadImg(upId, $("#upTitle").val());
+    //如果信息没有修改就不用更新了
+    if($("#upTitle").val() == courseList[upId].title
+        && $("#upDescrip").val() == courseList[upId].descrip
+        && $("#upAudience").val() == courseList[upId].audience){
+        console.log("没有修改任务信息");
+        window.location.reload();
+        return;
+    }
     $.ajax({
         type: "POST",
         url: "/course/update",
-        data: {"id":$("#updateBox").children().first().attr("data"),"title":$("#upTitle").val(),
-            "descrip":$("#upDescrip").val(),"audience":$("#upAudience").val()},
+        data: {"id":upId,"title":$("#upTitle").val(),"descrip":$("#upDescrip").val(),
+            "audience":$("#upAudience").val()},
+        async: false,
         success: function (result) {
             if (!result.success){
                 alert(result.msg);
@@ -94,3 +105,37 @@ function setStage(id) {
         default: return "已闭课";
     }
 }
+var upImage = "";
+function onloadImg(file) {
+    if(!file.files || !file.files[0]){
+        return;
+    }
+    console.log("大小：" + file.files[0].size);
+    if(file.files[0].size > 262144){
+        alert("文件最大不能超过256KB。");
+        return;
+    }
+    var reader = new FileReader();
+    reader.readAsDataURL(file.files[0]);
+    reader.onload = function(evt){
+        document.getElementById('coverImg').src = evt.target.result;
+        upImage = evt.target.result;
+    };
+};
+function uploadImg(cid, title) {
+    if(!upImage || "" == upImage){
+        return;
+    }
+    $.ajax({
+        type: "POST",
+        url: "/course/uploadCover",
+        data: {"rid": cid,"title": title,"image": upImage},
+        async: false,
+        success: function (result) {
+            if(!result.success){
+                console.log(result.msg);
+            }
+        },
+        dataType: "json"
+    });
+};

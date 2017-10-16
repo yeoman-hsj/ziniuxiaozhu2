@@ -1,12 +1,13 @@
 package com.ziniuxiaozhu.service.impl;
 
+import com.ziniuxiaozhu.common.Const;
 import com.ziniuxiaozhu.data.entity.Course;
 import com.ziniuxiaozhu.data.mapper.CourseMapper;
-import com.ziniuxiaozhu.data.mapper.ResMapper;
 import com.ziniuxiaozhu.service.interfaces.ICourseService;
 import com.ziniuxiaozhu.service.interfaces.IResService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.util.StringUtils;
 
 import java.util.List;
 
@@ -46,4 +47,14 @@ public class CourseServiceImpl implements ICourseService {
         }
         return list;
     }
+
+    @Override
+    public List<Course> getReviewList() {
+        List<Course> list = courseMapper.selectListByStage(Const.CourseStage.REVIEW);
+        for (Course course : list){
+            course.setCoverUrl(resService.getResCoverImgUrl(course.getId()));
+        }
+        return list;
+    }
+
 }
